@@ -1,0 +1,8 @@
+https://en.wikipedia.org/wiki/Alien_hand_syndrome							proc:wiki			under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Wikipedia:Unusual_articles						proc:wiki,noimg			under:wikipedia			css:g.css
+http://www.gutenberg.org/cache/epub/201/pg201.txt											under:books			
+https://www.imperial-library.info/content/36-lessons-vivec						proc:imperial_lib		under:imperial library		css:g.css
+https://www.reddit.com/r/AMA/comments/2qm8o8/i_am_the_15yo_guy_who_was_falsely_accused_of_rape/		proc:reddit_thread		under:reddit			css:g.css
+https://esolangs.org/wiki/Language_list									proc:wiki			under:esoteric languages wiki	css:g.css
+http://en.uesp.net/wiki/Skyrim:Mountain_Climbing							proc:wiki,noimg			under:uesp wiki			css:g.css
+http://en.uesp.net/wiki/Skyrim:Passive_Creatures							proc:wiki			under:uesp wiki			css:g.css
