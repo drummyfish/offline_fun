@@ -4,3 +4,8 @@ body
   {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   }
+
+.child   /* for reddit comments */
+  {
+    margin-left: 20px;
+  }

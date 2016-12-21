@@ -18,19 +18,25 @@ def wiki(html):                                         ##< for Wikipedia and Wi
 
 def nojs(html):                                         ##< removes JavaScript
   parser = FunHTMLParser()
-  return parser.delete_subtrees(html,"script","")
+  return parser.delete_subtrees(html,"script")
 
 def noimg(html):
   parser = FunHTMLParser()
-  return parser.delete_subtrees(html,"img","")
+  return parser.delete_subtrees(html,"img")
 
 def novideo(html):
   parser = FunHTMLParser()
-  return parser.delete_subtrees(html,"video","") 
+  return parser.delete_subtrees(html,"video") 
 
 def imperial_lib(html):
   parser = FunHTMLParser()
   return parser.leave_only_subtrees(html,"","main")
+
+def reddit(html):
+  parser = FunHTMLParser()
+  html = parser.leave_only_subtrees(html,"div","","content")
+  html = parser.delete_subtrees(html,"ul","","flat-list buttons")
+  return html
 
 def add_css(html, css_filename):
   parser = FunHTMLParser()

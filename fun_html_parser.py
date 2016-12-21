@@ -104,19 +104,21 @@ class FunHTMLParser(HTMLParser):
   def html_epilog(self):                                      ##< Gets the end of HTML document
     return "</body></html>"
 
-  def delete_subtrees(self, html, tag_name, tag_id):          ##< Deletes all subtrees meeting a condition.
-    return self.__filter(html, tag_name, tag_id, False)       #   Tag or name can be empty ("") to be ignored.
+  def delete_subtrees(self, html, tag_name, tag_id="", tag_class=""):     ##< Deletes all subtrees meeting a condition.
+    return self.__filter(html, tag_name, tag_id, tag_class, False)        #   Tag, name or class can be empty ("") to be ignored.
     
-  def leave_only_subtrees(self, html, tag_name, tag_id):      ##< Leaves only subtrees meeting given condition (html, body and head stays).
-                                                              #   Tag or name can be empty ("") to be ignored.
-    return self.html_prolog(html) + self.__filter(html, tag_name, tag_id, True) + self.html_epilog()
+  def leave_only_subtrees(self, html, tag_name, tag_id="", tag_class=""): ##< Leaves only subtrees meeting given condition (html, body and head stays).
+                                                                          #   Tag, name or class can be empty ("") to be ignored.
+    return self.html_prolog(html) + self.__filter(html, tag_name, tag_id, tag_class, True) + self.html_epilog()
 
-  def __filter(self, html, tag_name, tag_id, include=True):   ##< Helper method, either leaves only given subtrees (include == True)
-                                                              #   or deletes all such subtrees (include == False)
+  def __filter(self, html, tag_name, tag_id, tag_class, include=True):    ##< Helper method, either leaves only given subtrees (include == True)
+                                                                          #   or deletes all such subtrees (include == False)
     def starttag_func(self, tag, attrs):
       inside = False
 
-      if (len(self.tag_name) != 0 and self.tag_name == tag) or (len(self.tag_id) != 0 and self.attr_has_value(attrs,"id",self.tag_id)):
+      if ( (len(self.tag_name) == 0 or self.tag_name == tag) and
+           (len(self.tag_id) == 0 or self.attr_has_value(attrs,"id",self.tag_id)) and
+           (len(self.tag_class) == 0 or self.attr_has_value(attrs,"class",self.tag_class)) ):
         self.looking_for_tag = tag
         self.depth = 0
         self.id_found = True
@@ -159,6 +161,7 @@ class FunHTMLParser(HTMLParser):
     self.include = include
     self.tag_id = tag_id
     self.tag_name = tag_name
+    self.tag_class = tag_class
     self.looking_for_tag = ""
     self.depth = 0
     self.result = ""
