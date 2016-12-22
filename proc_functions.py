@@ -38,11 +38,15 @@ def reddit(html):
   html = parser.delete_subtrees(html,"ul","","flat-list buttons")
   return html
 
+# Add your own functions here
+
+#================================================
+# Following functions are NOT to be used from the
+# content_file.txt.
+
 def add_css(html, css_filename):
   parser = FunHTMLParser()
   return parser.add_to_head(html,"<link rel=\"stylesheet\" href=\"" + css_filename + "\">")
-
-# Add your own functions here
 
 #================================================
 

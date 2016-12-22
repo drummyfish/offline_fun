@@ -12,10 +12,23 @@ MAX_ATTEMPTS = 3
 ATTEMPT_WAIT = 3
 
 def make_index_page(processed_pages):
-  result = "<html><head><meta charset=\"UTF-8\"><title>offline fun - index</title></head><body>\n"
-  result += "<ul>\n"
+  result = "<html><head><meta charset=\"UTF-8\"><title>offline fun - index</title></head><body>\n"  
+  result += "<h1>Offline Fun</h1>\n"
+
+  processed_pages = sorted(processed_pages, key=lambda item: item[2])
+
+  previous_cathegory = None
 
   for page in processed_pages:
+    if page[2] != previous_cathegory:
+      if previous_cathegory != None:
+        result += "</ul>\n"
+
+      previous_cathegory = page[2]
+
+      result += "<h2>" + page[2] + "</h2>\n"
+      result += "<ul>\n"   # start a new list
+
     result += "<li><a href=\"" + os.path.join(OUTPUT_FOLDER_SUBFOLDER,page[0]) + "\">" + page[1] + "</a></li>"
 
   result += "</ul>\n"
@@ -41,14 +54,46 @@ def get_html_title(html):
 
 def url_to_filename(url):
   extension = get_extension(url)
-  
+
   url = re.sub("\n","",url)
-  url = re.sub("^https?://","",url)
+  url = re.sub("^(https?|)://","",url)
   url = re.sub("[\./]","_",url)
 
   url += extension
 
   return url
+
+def relative_to_absolute_url(url,complete_url):
+  if len(url) == 0 or url[0] != "/":
+    return url
+
+  prefix = complete_url[:re.search("(^[^/]*//[^/]+)",complete_url).end(1)]
+
+  return prefix + url
+
+def correct_links(html,url):
+  result = ""
+  position = 0
+
+  for match in re.finditer(" href *= *[\"']([^\"']*)[\"']",html):
+    result += html[position:match.start(1)]
+    result += url_to_filename(relative_to_absolute_url(html[match.start(1):match.end(1)],url))
+    position = match.end(1)
+
+  result += html[position:]
+
+  return result
+
+#================================================================
+#                            Main
+#================================================================
+
+#print(relative_to_absolute_url("/wiki/Omgrofl","https://esolangs.org/wiki/Language_list"))
+
+#webpage_data = urllib2.urlopen("https://en.wikipedia.org/wiki/Wikipedia")
+#html = webpage_data.read()
+#print(correct_links(html));
+#quit()
 
 data_folder = os.path.join(OUTPUT_FOLDER,OUTPUT_FOLDER_SUBFOLDER)
 
@@ -117,6 +162,8 @@ with open(CONTENT_FILE,"r") as content_file:
 
     if page_title == "":
       page_title = url
+
+    html = correct_links(html,url)
 
     if len(css_name) != 0:        # handle css
       html = proc_functions.add_css(html,css_name)
