@@ -28,12 +28,12 @@ class FunHTMLParser(HTMLParser):
   def endtag_html(self, tag):
     return "</" + tag + ">"
 
-  def add_to_head(self, html, what):                          ##< Adds specified text to the head of HTML. 
+  def __add_after_tag(self, html, text, tag):                 ##< Helper method, adds given text after 1st found specified tag
     def starttag_func(self, tag, attrs):
       self.result += self.tag_html(tag,attrs)
 
-      if tag == "head":
-        self.result += what
+      if tag == self.looking_for_tag:
+        self.result += self.text_to_insert
 
     def endtag_func(self, tag):
       self.result += self.endtag_html(tag)
@@ -45,10 +45,18 @@ class FunHTMLParser(HTMLParser):
     self.handle_endtag = types.MethodType(endtag_func,self)
     self.handle_data = types.MethodType(data_func,self)
 
+    self.looking_for_tag = tag
+    self.text_to_insert = text
     self.result = ""
     self.feed(html)
 
-    return self.result
+    return self.result    
+
+  def add_to_head(self, html, text):                          ##< Adds specified text to the head of HTML. 
+    return self.__add_after_tag(html,text,"head")
+
+  def add_to_body(self, html, text):                          ##< Adds specified text to the body of HTML. 
+    return self.__add_after_tag(html,text,"body")
 
   def compress(self, html):                                   ##< Doesn't change the HTML semantics, only compresses it to more compact form.
     def starttag_func(self, tag, attrs):

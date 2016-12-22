@@ -9,3 +9,48 @@ body
   {
     margin-left: 20px;
   }
+
+h1, h2, .title
+  {
+    background-color: black;
+    color: white;
+    padding: 10px;
+  }
+
+h1 a, h2 a
+  {
+    color: rgb(150,150,255);
+  }
+
+h3, h4, h5
+  {
+    border-bottom: 1px solid black;
+    padding: 10px;
+  }
+
+p
+  {
+    display: block;
+    padding-left: 20px;
+  }
+
+a
+  {
+    text-decoration: none;
+  }
+
+img
+  {
+    text-indent: -1000px;
+    background-color: rgb(220,220,220);
+    border: none;
+    margin: 5px;
+  }
+
+pre
+  {
+    border: 1px dashed black;
+    padding: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }

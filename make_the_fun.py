@@ -4,6 +4,7 @@ import os.path
 import time
 import proc_functions
 import shutil
+import fun_html_parser
 
 CONTENT_FILE = "content_file.txt"
 OUTPUT_FOLDER = "output"
@@ -35,6 +36,11 @@ def make_index_page(processed_pages):
   result += "</body></html>\n"
 
   return result
+
+def add_page_header(html, original_url, title):
+  parser = fun_html_parser.FunHTMLParser()
+  html_code = "<div id=\"offline_fun_header\" style=\"padding: 20px; background-color: rgb(232,145,84);\"> <a href=\"../index.html\">back</a> to index, offline fun index - <a href=\"" + original_url + "\">" + title + "</a></div>\n"
+  return parser.add_to_body(html,html_code)
 
 def get_extension(url):
   extension = url[url.rfind("."):]
@@ -87,13 +93,6 @@ def correct_links(html,url):
 #================================================================
 #                            Main
 #================================================================
-
-#print(relative_to_absolute_url("/wiki/Omgrofl","https://esolangs.org/wiki/Language_list"))
-
-#webpage_data = urllib2.urlopen("https://en.wikipedia.org/wiki/Wikipedia")
-#html = webpage_data.read()
-#print(correct_links(html));
-#quit()
 
 data_folder = os.path.join(OUTPUT_FOLDER,OUTPUT_FOLDER_SUBFOLDER)
 
@@ -174,6 +173,8 @@ with open(CONTENT_FILE,"r") as content_file:
     except AttributeError as e:
       print("error applying proc functions: " + proc_function_names)
       error_count += 1
+
+    html = add_page_header(html,url,page_title)
 
     processed_pages.append( (filename,page_title,list_under) )
 
