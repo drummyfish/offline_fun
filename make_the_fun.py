@@ -1,4 +1,5 @@
 import re
+import urllib
 import urllib2
 import os.path
 import time
@@ -11,16 +12,41 @@ OUTPUT_FOLDER = "output"
 OUTPUT_FOLDER_SUBFOLDER = "content"
 MAX_ATTEMPTS = 3
 ATTEMPT_WAIT = 3
+DEFAULT_CSS = "g.css"
 
-def make_index_page(processed_pages):
+EXTENSIONS_WEBPAGE = (".html",".htm")
+EXTENSIONS_TEXT = tuple(".txt")
+EXTENSIONS_IMAGE = (".jpg",".jpeg",".bmp",".png",".tiff")
+
+EXTENSIONS = EXTENSIONS_WEBPAGE + EXTENSIONS_TEXT + EXTENSIONS_IMAGE
+
+FILETYPE_WEBPAGE = 0
+FILETYPE_IMAGE = 1
+FILETYPE_TEXT = 2
+FILETYPE_PDF = 3
+FILETYPE_UNKNOWN = 4
+
+def get_filetype(url):
+  extension = get_extension(url)
+
+  if extension in EXTENSIONS_WEBPAGE:
+    return FILETYPE_WEBPAGE
+  elif extension in EXTENSIONS_IMAGE:
+    return FILETYPE_IMAGE
+  elif extension in EXTENSIONS_TEXT:
+    return FILETYPE_TEXT
+
+  return FILETYPE_UNKNOWN
+
+def make_index_page(processed_downloads):
   result = "<html><head><meta charset=\"UTF-8\"><title>offline fun - index</title></head><body>\n"  
   result += "<h1>Offline Fun</h1>\n"
 
-  processed_pages = sorted(processed_pages, key=lambda item: item[2])
+  processed_downloads = sorted(processed_downloads, key=lambda item: item[2])
 
   previous_cathegory = None
 
-  for page in processed_pages:
+  for page in processed_downloads:
     if page[2] != previous_cathegory:
       if previous_cathegory != None:
         result += "</ul>\n"
@@ -43,9 +69,9 @@ def add_page_header(html, original_url, title):
   return parser.add_to_body(html,html_code)
 
 def get_extension(url):
-  extension = url[url.rfind("."):]
+  extension = url[url.rfind("."):].lower()
 
-  if extension != ".html" and extension != ".txt":
+  if not extension in EXTENSIONS:
     extension = ".html"
 
   return extension
@@ -81,10 +107,10 @@ def correct_links(html,url):
   result = ""
   position = 0
 
-  for match in re.finditer(" href *= *[\"']([^\"']*)[\"']",html):
-    result += html[position:match.start(1)]
-    result += url_to_filename(relative_to_absolute_url(html[match.start(1):match.end(1)],url))
-    position = match.end(1)
+  for match in re.finditer(" (href|src) *= *[\"']([^\"']*)[\"']",html):
+    result += html[position:match.start(2)]
+    result += url_to_filename(relative_to_absolute_url(html[match.start(2):match.end(2)],url))
+    position = match.end(2)
 
   result += html[position:]
 
@@ -102,7 +128,7 @@ os.makedirs(os.path.join(OUTPUT_FOLDER,OUTPUT_FOLDER_SUBFOLDER))
 
 error_count = 0
 
-processed_pages = []    # list of tuples: (filename, page title, cathegory)
+processed_downloads = []    # list of tuples: (filename, page title, cathegory)
 
 with open(CONTENT_FILE,"r") as content_file:
   for line in content_file:
@@ -115,77 +141,90 @@ with open(CONTENT_FILE,"r") as content_file:
 
     url = splitted[0]
 
-    proc_function_names = ""
-    list_under = ""
-    css_name = ""
+    filetype = get_filetype(url)
 
-    for attribute in splitted[1:]:
-      attribute_splitted = attribute.split(":")
+    if filetype in (FILETYPE_WEBPAGE,FILETYPE_TEXT):
+      #========= WEBPAGE ==========
+      proc_function_names = ""
+      list_under = "other"                      # default cathegory
+      css_name = ""
 
-      if len(attribute_splitted) != 2:
-        continue
+      for attribute in splitted[1:]:
+        attribute_splitted = attribute.split(":")
 
-      attr_name = attribute_splitted[0]
-      attr_value = attribute_splitted[1]
+        if len(attribute_splitted) != 2:
+          continue
 
-      if attr_name == "proc":
-        proc_function_names = attr_value
-      elif attr_name == "under":
-        list_under = attr_value
-      elif attr_name == "css":
-         css_name = attr_value
+        attr_name = attribute_splitted[0]
+        attr_value = attribute_splitted[1]
 
-    filename = url_to_filename(url)
+        if attr_name == "proc":
+          proc_function_names = attr_value
+        elif attr_name == "under":
+          list_under = attr_value
+        elif attr_name == "css":
+           css_name = attr_value
 
-    print("downloading: " + url)
+      filename = url_to_filename(url)
 
-    attempt_count = 0
+      print("downloading page: " + url)
 
-    while attempt_count < MAX_ATTEMPTS:
+      attempt_count = 0
+
+      while attempt_count < MAX_ATTEMPTS:
+        try:
+          webpage_data = urllib2.urlopen(url)
+          html = webpage_data.read()
+          break
+        except Exception:
+          print("error downloading the page, trying again...")
+          attempt_count += 1
+
+          if attempt_count == MAX_ATTEMPTS:
+            print("failed too many times, going on...")
+          else:
+            time.sleep(ATTEMPT_WAIT)
+
+      print("processing")
+
+      page_title = get_html_title(html)
+
+      if page_title == "":
+        page_title = url
+
+      html = correct_links(html,url)
+
+      if len(css_name) != 0:        # handle css
+        html = proc_functions.add_css(html,css_name)
+        shutil.copyfile(css_name,os.path.join(OUTPUT_FOLDER,OUTPUT_FOLDER_SUBFOLDER,css_name))
+
       try:
-        webpage_data = urllib2.urlopen(url)
-        html = webpage_data.read()
-        break
-      except Exception:
-        print("error downloading the page, trying again...")
-        attempt_count += 1
+        html = proc_functions.apply_proc_functions(html,proc_function_names)
+      except AttributeError as e:
+        print("error applying proc functions: " + proc_function_names)
+        error_count += 1
 
-        if attempt_count == MAX_ATTEMPTS:
-          print("failed too many times, going on...")
-        else:
-          time.sleep(ATTEMPT_WAIT)
+      html = add_page_header(html,url,page_title)
 
-    print("processing")
+      processed_downloads.append( (filename,page_title,list_under) )
 
-    page_title = get_html_title(html)
+      text_file = open(os.path.join(data_folder,filename),"w")
+      text_file.write(str(html))
+      text_file.close()
+    elif filetype == FILETYPE_IMAGE:
+      #========= WEBPAGE ==========
+      print("downloading image: " + url)
 
-    if page_title == "":
-      page_title = url
+      imagefile = urllib.URLopener()
+      filename = url_to_filename(url)
+      imagefile.retrieve(url,os.path.join(data_folder,filename))
 
-    html = correct_links(html,url)
-
-    if len(css_name) != 0:        # handle css
-      html = proc_functions.add_css(html,css_name)
-      shutil.copyfile(css_name,os.path.join(OUTPUT_FOLDER,OUTPUT_FOLDER_SUBFOLDER,css_name))
-
-    try:
-      html = proc_functions.apply_proc_functions(html,proc_function_names)
-    except AttributeError as e:
-      print("error applying proc functions: " + proc_function_names)
-      error_count += 1
-
-    html = add_page_header(html,url,page_title)
-
-    processed_pages.append( (filename,page_title,list_under) )
-
-    text_file = open(os.path.join(data_folder,filename),"w")
-    text_file.write(str(html))
-    text_file.close()
+      processed_downloads.append( (filename,url,"resources") )
 
 print("making the index page")
 
 text_file = open(os.path.join(OUTPUT_FOLDER,"index.html"),"w")
-text_file.write(make_index_page(processed_pages))
+text_file.write(proc_functions.add_css(make_index_page(processed_downloads),os.path.join(OUTPUT_FOLDER_SUBFOLDER,DEFAULT_CSS)))
 text_file.close()
 
 print("Completed with " + str(error_count) + " errors.")
