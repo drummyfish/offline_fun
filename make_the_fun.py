@@ -16,7 +16,7 @@ DEFAULT_CSS = "g.css"
 
 EXTENSIONS_WEBPAGE = (".html",".htm")
 EXTENSIONS_TEXT = tuple(".txt")
-EXTENSIONS_IMAGE = (".jpg",".jpeg",".bmp",".png",".tiff")
+EXTENSIONS_IMAGE = (".jpg",".jpeg",".bmp",".png",".tiff",".svg",".gif")
 
 EXTENSIONS = EXTENSIONS_WEBPAGE + EXTENSIONS_TEXT + EXTENSIONS_IMAGE
 
@@ -39,7 +39,19 @@ def get_filetype(url):
   return FILETYPE_UNKNOWN
 
 def make_index_page(processed_downloads):
-  result = "<html><head><meta charset=\"UTF-8\"><title>offline fun - index</title></head><body>\n"  
+  result = "<html><head><meta charset=\"UTF-8\"><title>offline fun - index</title>\n"
+  result += ("<script>\n"
+             "function onload() {\n"
+             "var link_element = document.createElement(\"a\");\n"
+             "var a_elements = document.getElementsByTagName(\"a\");\n"
+             "var random_link = a_elements[Math.floor(Math.random()*a_elements.length)];\n"
+             "link_element.innerHTML = \"random page\";\n"
+             "link_element.className = \"offline_fun_random\";\n"
+             "link_element.setAttribute(\"href\",random_link);\n"
+             "document.body.insertBefore(link_element,document.body.childNodes[3]); }\n"
+             "</script>\n")
+
+  result += "</head><body onload=\"onload()\">\n"  
   result += "<h1>Offline Fun</h1>\n"
 
   processed_downloads = sorted(processed_downloads, key=lambda item: item[2])
@@ -212,7 +224,7 @@ with open(CONTENT_FILE,"r") as content_file:
       text_file.write(str(html))
       text_file.close()
     elif filetype == FILETYPE_IMAGE:
-      #========= WEBPAGE ==========
+      #========= IMAGE ==========
       print("downloading image: " + url)
 
       imagefile = urllib.URLopener()

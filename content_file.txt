@@ -1,15 +1,62 @@
 # wikipedia
-https://en.wikipedia.org/wiki/Alien_hand_syndrome							proc:wiki			under:wikipedia			css:g.css
-https://en.wikipedia.org/wiki/Wikipedia:Unusual_articles						proc:wiki,noimg			under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Alien_hand_syndrome							proc:wiki,nojs			under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Wikipedia:Unusual_articles						proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Folly									proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Tank_Man									proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Metal_umlaut								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/%27Pataphysics								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/David_Hahn								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/List_of_fictional_elements,_materials,_isotopes_and_atomic_particles	proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/IP_over_Avian_Carriers							proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Wikipedia									proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/List_of_lists_of_lists							proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/List_of_books_banned_by_governments					proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/List_of_video_games_considered_the_best					proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/List_of_online_encyclopedias						proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/List_of_Linux_distributions						proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+
+# the elder scrolls
+http://en.uesp.net/wiki/Skyrim:Mountain_Climbing							proc:wiki,noimg,nojs		under:uesp wiki			css:g.css
+http://en.uesp.net/wiki/Skyrim:Passive_Creatures							proc:wiki,nojs			under:uesp wiki			css:g.css
+http://en.uesp.net/wiki/Lore:Vivec_(god)								proc:wiki,nojs			under:uesp wiki			css:g.css
+http://en.uesp.net/wiki/Lore:First_Era									proc:wiki,nojs			under:uesp wiki			css:g.css
+http://en.uesp.net/wiki/Lore:Second_Era									proc:wiki,nojs			under:uesp wiki			css:g.css
+http://en.uesp.net/wiki/Lore:Third_Era									proc:wiki,nojs			under:uesp wiki			css:g.css
+http://en.uesp.net/wiki/Lore:Fourth_Era									proc:wiki,nojs			under:uesp wiki			css:g.css
+http://en.uesp.net/wiki/Lore:Merethic_Era								proc:wiki,nojs			under:uesp wiki			css:g.css
+
+http://elderscrolls.wikia.com/wiki/Vivec								proc:wiki,nojs			under:uesp wiki			css:g.css
+http://elderscrolls.wikia.com/wiki/Imperial_City							proc:wiki,nojs			under:uesp wiki			css:g.css
 
 # other
-https://esolangs.org/wiki/Language_list									proc:wiki			under:esoteric languages wiki	css:g.css
-https://esolangs.org/wiki/Omgrofl									proc:wiki			under:esoteric languages wiki	css:g.css
-https://esolangs.org/wiki/Hello_world_program_in_esoteric_languages					proc:wikiw			under:esoteric languages wiki	css:g.css
-http://en.uesp.net/wiki/Skyrim:Mountain_Climbing							proc:wiki,noimg			under:uesp wiki			css:g.css
-http://en.uesp.net/wiki/Skyrim:Passive_Creatures							proc:wiki			under:uesp wiki			css:g.css
-https://www.imperial-library.info/content/36-lessons-vivec						proc:imperial_lib		under:imperial library		css:g.css
-https://www.reddit.com/r/AMA/comments/2qm8o8/i_am_the_15yo_guy_who_was_falsely_accused_of_rape/		proc:reddit			under:reddit			css:g.css
+https://esolangs.org/wiki/Language_list									proc:wiki,nojs			under:esoteric languages wiki	css:g.css
+https://esolangs.org/wiki/Omgrofl									proc:wiki,nojs			under:esoteric languages wiki	css:g.css
+https://esolangs.org/wiki/Hello_world_program_in_esoteric_languages					proc:wiki,nojs			under:esoteric languages wiki	css:g.css
+
+https://www.imperial-library.info/books/all/by-category							proc:imperial_lib,nojs		under:imperial library		css:g.css
+https://www.imperial-library.info/content/36-lessons-vivec						proc:imperial_lib,nojs		under:imperial library		css:g.css
+https://www.imperial-library.info/content/argonian-refugees-diary					proc:imperial_lib,nojs		under:imperial library		css:g.css
+https://www.imperial-library.info/content/arx-corinium-first-seed-report				proc:imperial_lib,nojs		under:imperial library		css:g.css
+
+https://www.reddit.com/r/IAmA/comments/5jcv54/iama_survivor_of_an_explosion_accident_20_years/		proc:reddit,nojs		under:reddit			css:g.css
+https://www.reddit.com/r/IAmA/comments/3oh4ga/i_woke_up_in_the_hospital_unable_to_move_or_speak/	proc:reddit,nojs		under:reddit			css:g.css
+https://www.reddit.com/r/IAmA/comments/13rs46/i_am_benjaman_kyle_an_amnesiac_who_woke_up_with/		proc:reddit,nojs		under:reddit			css:g.css
+https://www.reddit.com/r/IAmA/comments/4hhf68/i_chose_to_have_my_foot_amputated_because_of_a/		proc:reddit,nojs		under:reddit			css:g.css
+https://www.reddit.com/r/IAmA/comments/3o37k2/iama_boat_propellor_accident_survivor_ama/		proc:reddit,nojs		under:reddit			css:g.css
+https://www.reddit.com/r/IAmA/comments/nmmjr/iama_man_who_had_a_sexual_relationship_with_his/		proc:reddit,nojs		under:reddit			css:g.css
+https://www.reddit.com/r/IAmA/comments/ryfnu/iama_25_year_old_gay_man_who_has_been_in_a/		proc:reddit,nojs		under:reddit			css:g.css
+https://www.reddit.com/r/IAmA/comments/mt4f7/i_am_a_man_who_who_had_a_sexual_relationship_with/		proc:reddit,nojs		under:reddit			css:g.css
+https://www.reddit.com/r/AskReddit/comments/xf5c2/reddit_are_you_aware_how_dangerous_the_askarapist/	proc:reddit,nojs		under:reddit			css:g.css
+http://web.archive.org/web/20120727153610/http://www.reddit.com/r/AskReddit/comments/x6yef/reddits_had_a_few_threads_about_sexual_assault/c5jtt3p	proc:reddit,nojs		under:reddit			css:g.css
+https://www.reddit.com/r/AskReddit/comments/219w2o/whos_the_dumbest_person_youve_ever_met/cgbhkwp/	proc:reddit,nojs		under:reddit			css:g.css
 
 http://www.gutenberg.org/cache/epub/201/pg201.txt											under:books			
 http://www.gutenberg.org/cache/epub/5768/pg5768.txt											under:books
+
+http://www.freepatentsonline.com/crazy.html								proc:nojs							css:g.css
+
+# resources
+
+http://en.uesp.net/w/images/thumb/3/3d/MW-concept-AnumidumBW.jpg/180px-MW-concept-AnumidumBW.jpg
+https://upload.wikimedia.org/wikipedia/commons/1/1b/Linux_Distribution_Timeline.svg
+https://upload.wikimedia.org/wikipedia/commons/6/69/DebianFamilyTree1210.svg
