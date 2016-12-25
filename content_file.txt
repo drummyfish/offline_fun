@@ -29,8 +29,8 @@ http://en.uesp.net/wiki/Lore:Tribunal_Temple								proc:wiki,nojs			under:TES w
 http://www.uesp.net/wiki/Lore:Gods									proc:wiki,nojs			under:TES wikis			css:g.css
 http://en.uesp.net/wiki/Lore:Elder_Scrolls								proc:wiki,nojs			under:TES wikis			css:g.css
 
-http://elderscrolls.wikia.com/wiki/Vivec								proc:wiki,nojs			under:TES wikis			css:g.css
-http://elderscrolls.wikia.com/wiki/Imperial_City							proc:wiki,nojs			under:TES wikis			css:g.css
+http://elderscrolls.wikia.com/wiki/Vivec								proc:nojs			under:TES wikis			css:g.css
+http://elderscrolls.wikia.com/wiki/Imperial_City							proc:nojs			under:TES wikis			css:g.css
 
 # other
 https://esolangs.org/wiki/Language_list									proc:wiki,nojs			under:esoteric languages wiki	css:g.css
@@ -59,12 +59,12 @@ http://www.gutenberg.org/cache/epub/5768/pg5768.txt											under:books
 
 http://www.freepatentsonline.com/crazy.html								proc:nojs							css:g.css
 
-http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_1_(2012)					proc:wiki,nojs			under:cicada 3301 wiki		css:g.css
-http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_2_(2012)					proc:wiki,nojs			under:cicada 3301 wiki		css:g.css
-http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_1_(2013)					proc:wiki,nojs			under:cicada 3301 wiki		css:g.css
-http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_2_(2013)					proc:wiki,nojs			under:cicada 3301 wiki		css:g.css
-http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_1_(2014)					proc:wiki,nojs			under:cicada 3301 wiki		css:g.css
-http://uncovering-cicada.wikia.com/wiki/What_Happened_Liber_Primus_(Post_2014)				proc:wiki,nojs			under:cicada 3301 wiki		css:g.css
+http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_1_(2012)					proc:nojs			under:cicada 3301 wiki		css:g.css
+http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_2_(2012)					proc:nojs			under:cicada 3301 wiki		css:g.css
+http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_1_(2013)					proc:nojs			under:cicada 3301 wiki		css:g.css
+http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_2_(2013)					proc:nojs			under:cicada 3301 wiki		css:g.css
+http://uncovering-cicada.wikia.com/wiki/What_Happened_Part_1_(2014)					proc:nojs			under:cicada 3301 wiki		css:g.css
+http://uncovering-cicada.wikia.com/wiki/What_Happened_Liber_Primus_(Post_2014)				proc:nojs			under:cicada 3301 wiki		css:g.css
 
 http://lolmythesis.com/											proc:nojs			under:lol my thesis		css:g.css
 http://lolmythesis.com/page/2										proc:nojs			under:lol my thesis		css:g.css
@@ -80,4 +80,4 @@ http://lolmythesis.com/page/8										proc:nojs			under:lol my thesis		css:g.cs
 http://en.uesp.net/w/images/thumb/3/3d/MW-concept-AnumidumBW.jpg/180px-MW-concept-AnumidumBW.jpg
 https://upload.wikimedia.org/wikipedia/commons/1/1b/Linux_Distribution_Timeline.svg
 https://upload.wikimedia.org/wikipedia/commons/6/69/DebianFamilyTree1210.svg
-http://vignette4.wikia.nocookie.net/uncovering-cicada/images/1/11/1399181864285.png/revision/latest/scale-to-width-down/400?cb=20140504194619
+

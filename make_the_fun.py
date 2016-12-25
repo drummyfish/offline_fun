@@ -10,9 +10,13 @@ import fun_html_parser
 CONTENT_FILE = "content_file.txt"
 OUTPUT_FOLDER = "output"
 OUTPUT_FOLDER_SUBFOLDER = "content"
-MAX_ATTEMPTS = 3
+MAX_ATTEMPTS = 5
 ATTEMPT_WAIT = 3
 DEFAULT_CSS = "g.css"
+
+COOKIES = (
+  ("over18","1"),           # for reddit
+  )
 
 EXTENSIONS_WEBPAGE = (".html",".htm")
 EXTENSIONS_TEXT = (".txt",)
@@ -72,6 +76,20 @@ def make_index_page(processed_downloads):
 
   result += "</ul>\n"
   result += "</body></html>\n"
+
+  return result
+
+def cookies_string(cookies):
+  result = ""
+  first = True
+
+  for cookie in cookies:
+    if first:
+      first = False
+    else:
+      result += ";"
+
+    result += cookie[0] + "=" + cookie[1]
 
   return result
 
@@ -187,7 +205,9 @@ with open(CONTENT_FILE,"r") as content_file:
 
       while attempt_count < MAX_ATTEMPTS:
         try:
-          webpage_data = urllib2.urlopen(url)
+          opener = urllib2.build_opener()
+          opener.addheaders.append(("Cookie",cookies_string(COOKIES)))
+          webpage_data = opener.open(url)
           html = webpage_data.read()
           break
         except Exception:
@@ -196,6 +216,7 @@ with open(CONTENT_FILE,"r") as content_file:
 
           if attempt_count == MAX_ATTEMPTS:
             print("failed too many times, going on...")
+            error_count += 1
           else:
             time.sleep(ATTEMPT_WAIT)
 

@@ -3,21 +3,38 @@
 body
   {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  }
-
-.child   /* for reddit comments */
-  {
-    margin-left: 20px;
+    font-size: 12pt;
+    padding: 20px;
   }
 
 h1, h2, .title
   {
     background-color: black;
     color: white;
-    padding: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin: 30px 0 20px 2px;
   }
 
-h1 a, h2 a
+ul
+  {
+    list-style: square;
+  }
+
+.quote /* TES wiki */
+  {
+    background-color: black;
+    color: white;
+  }
+
+hr
+  {
+    margin: 20px 0;
+    border-top: 1px solid black;
+    border-bottom: none;
+  }
+
+h1 a, h2 a, th a, .quote a
   {
     color: rgb(150,150,255);
   }
@@ -53,4 +70,67 @@ pre
     padding: 10px;
     margin-left: 20px;
     margin-right: 20px;
+  }
+
+#toc   /* wikipedia ToC, displays incorrectly */
+  {
+    display: none;
+  }
+
+.wds-global-navigation-wrapper  /* wikias */
+  {
+    display: none;
+  }
+
+table
+  {
+    border-collapse: collapse;
+    margin: 10px 0;
+  }
+
+table, th, td
+  {
+    border: 1px solid black;
+  }
+
+th
+  {
+    background-color: black;
+    color: white;
+  }
+
+th, td
+  {
+    padding: 7px;
+  }
+
+/* reddit: */
+
+.tagline
+  {
+    margin: 5px 0;
+    padding: 2px;
+    font-size: 10pt;
+    color: gray;
+  }
+
+.score
+  {
+    margin: 0 5px;
+  }
+
+.child   /* for comments */
+  {
+    margin-left: 20px;
+    border: 1px solid black;
+  }
+
+.panestack-title
+  {
+    display: none;
+  }
+
+blockquote
+  {
+    font-style: italic;
   }
