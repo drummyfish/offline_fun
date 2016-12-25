@@ -15,7 +15,7 @@ ATTEMPT_WAIT = 3
 DEFAULT_CSS = "g.css"
 
 EXTENSIONS_WEBPAGE = (".html",".htm")
-EXTENSIONS_TEXT = tuple(".txt")
+EXTENSIONS_TEXT = (".txt",)
 EXTENSIONS_IMAGE = (".jpg",".jpeg",".bmp",".png",".tiff",".svg",".gif")
 
 EXTENSIONS = EXTENSIONS_WEBPAGE + EXTENSIONS_TEXT + EXTENSIONS_IMAGE
@@ -77,7 +77,9 @@ def make_index_page(processed_downloads):
 
 def add_page_header(html, original_url, title):
   parser = fun_html_parser.FunHTMLParser()
-  html_code = "<div id=\"offline_fun_header\" style=\"padding: 20px; background-color: rgb(232,145,84);\"> <a href=\"../index.html\">back</a> to index, offline fun index - <a href=\"" + original_url + "\">" + title + "</a></div>\n"
+  html_code = ("<div id=\"offline_fun_header\" style=\"margin: 20px 0; padding: 20px; background-color: "
+               "rgb(232,145,84);\"> <a href=\"../index.html\">back</a> to index, offline "
+               "fun index - <a href=\"" + original_url + "\">" + title + "</a></div>\n")
   return parser.add_to_body(html,html_code)
 
 def get_extension(url):
