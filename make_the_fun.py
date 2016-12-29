@@ -116,11 +116,14 @@ def get_html_title(html):
 
   return html[match.start(1):match.end(1)]
 
+def preprocess_link(url):
+  return re.sub("^(https?:|)//","",url)
+
 def url_to_filename(url):
   extension = get_extension(url)
 
   url = re.sub("\n","",url)
-  url = re.sub("^(https?|)://","",url)
+  url = preprocess_link(url)
   url = re.sub("[\./]","_",url)
 
   url += extension
@@ -141,7 +144,8 @@ def correct_links(html,url):
 
   for match in re.finditer(" (href|src) *= *[\"']([^\"']*)[\"']",html):
     result += html[position:match.start(2)]
-    result += url_to_filename(relative_to_absolute_url(html[match.start(2):match.end(2)],url))
+
+    result += url_to_filename(relative_to_absolute_url(preprocess_link(html[match.start(2):match.end(2)]),url))
     position = match.end(2)
 
   result += html[position:]
@@ -175,28 +179,28 @@ with open(CONTENT_FILE,"r") as content_file:
 
     filetype = get_filetype(url)
 
+    proc_function_names = ""
+    list_under = "other"                      # default cathegory
+    css_name = ""
+
+    for attribute in splitted[1:]:
+      attribute_splitted = attribute.split(":")
+
+      if len(attribute_splitted) != 2:
+        continue
+
+      attr_name = attribute_splitted[0]
+      attr_value = attribute_splitted[1]
+
+      if attr_name == "proc":
+        proc_function_names = attr_value
+      elif attr_name == "under":
+        list_under = attr_value
+      elif attr_name == "css":
+         css_name = attr_value
+
     if filetype in (FILETYPE_WEBPAGE,FILETYPE_TEXT):
       #========= WEBPAGE ==========
-      proc_function_names = ""
-      list_under = "other"                      # default cathegory
-      css_name = ""
-
-      for attribute in splitted[1:]:
-        attribute_splitted = attribute.split(":")
-
-        if len(attribute_splitted) != 2:
-          continue
-
-        attr_name = attribute_splitted[0]
-        attr_value = attribute_splitted[1]
-
-        if attr_name == "proc":
-          proc_function_names = attr_value
-        elif attr_name == "under":
-          list_under = attr_value
-        elif attr_name == "css":
-           css_name = attr_value
-
       filename = url_to_filename(url)
 
       print("downloading page: " + url)
