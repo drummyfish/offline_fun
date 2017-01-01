@@ -256,8 +256,12 @@ with open(CONTENT_FILE,"r") as content_file:
 
       imagefile = urllib.URLopener()
       filename = url_to_filename(url)
-      imagefile.retrieve(url,os.path.join(data_folder,filename))
 
+      complete_filename = os.path.join(data_folder,filename)
+
+      imagefile.retrieve(url,complete_filename)
+    
+      proc_functions.apply_proc_functions_image(complete_filename,proc_function_names)
       processed_downloads.append( (filename,url,"resources") )
 
 print("making the index page")

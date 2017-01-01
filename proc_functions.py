@@ -1,14 +1,16 @@
-## Definition of proc functions. Helper class FunHTMLParser can
+## Definition of proc functions. Helper class FunHTMLParser and decorators can
 #  be used. To test your proc functions call this file with Python.
 
 import sys
 import urllib2
-from fun_html_parser import FunHTMLParser
+from fun_html_parser import FunHTMLParser, proc_text, proc_image
+from PIL import Image
 
 #================================================
 #               PROC FUNCTIONS:
 #================================================
 
+@proc_text
 def wiki(html):                                         ##< for Wikipedia and Wikia pages, leaves only content
   parser = FunHTMLParser()
   html = parser.leave_only_subtrees(html,"","content")
@@ -16,27 +18,40 @@ def wiki(html):                                         ##< for Wikipedia and Wi
   html = novideo(html)
   return html
 
+@proc_text
 def nojs(html):                                         ##< removes JavaScript
   parser = FunHTMLParser()
   return parser.delete_subtrees(html,"script")
 
-def noimg(html):
+@proc_text
+def noimg(html):                                        ##< removes images
   parser = FunHTMLParser()
   return parser.delete_subtrees(html,"img")
 
-def novideo(html):
+@proc_text
+def novideo(html):                                      ##< removes videos
   parser = FunHTMLParser()
   return parser.delete_subtrees(html,"video") 
 
-def imperial_lib(html):
+@proc_text
+def imperial_lib(html):                                 ##< for imperial library website
   parser = FunHTMLParser()
   return parser.leave_only_subtrees(html,"","main")
 
-def reddit(html):
+@proc_text
+def reddit(html):                                       ##< for reddit
   parser = FunHTMLParser()
   html = parser.leave_only_subtrees(html,"div","","content")
   html = parser.delete_subtrees(html,"ul","","flat-list buttons")
   return html
+
+@proc_image
+def small(img):                                         ##< resizes the image to small
+  return img.resize((200,200))
+
+@proc_image
+def medium(img):                                        ##< resizes the image to small
+  return img.resize((512,512))
 
 # Add your own functions here
 
@@ -63,6 +78,25 @@ def apply_proc_functions(html, proc_function_names):      ##< Applies the proc f
       html = proc_func(html)
   
   return html
+
+def apply_proc_functions_image(image_path, proc_function_names):
+  if len(proc_function_names) == 0:
+    return
+
+  function_list = proc_function_names.split(",")
+
+  image = Image.open(image_path)
+
+  for function_name in function_list:
+    if len(function_name) == 0:
+      continue
+
+    proc_func = getattr(sys.modules[__name__],function_name)
+
+    if proc_func != None:
+      image = proc_func(image)
+
+  image.save(image_path)
 
 if __name__ == "__main__":
   if len(sys.argv) != 3:

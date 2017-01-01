@@ -1,6 +1,28 @@
 from HTMLParser import HTMLParser
 import sys
 import types
+import PIL
+
+def proc_text(input_func):  ##< decorator used for functions that process text (mostly HTML)
+  def wrapper(input_text):
+    if not type(input_text) is str:
+      print("Warning: Can only apply proc func \"" + input_func.__name__ + "\" to string.")
+      return input_text
+
+    return input_func(input_text)
+
+  return wrapper
+
+def proc_image(input_func): ##< decorator used for functions that process images
+  def wrapper(input_image):
+
+    if not isinstance(input_image,PIL.Image.Image):
+      print("Warning: Can only apply proc func \"" + input_func.__name__ + "\" to image.")
+      return input_image
+
+    return input_func(input_image)
+
+  return wrapper
 
 ## Helper HTML parser class to be used in proc functions.
 

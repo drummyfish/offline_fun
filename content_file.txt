@@ -15,6 +15,12 @@ https://en.wikipedia.org/wiki/List_of_video_games_considered_the_best					proc:w
 https://en.wikipedia.org/wiki/List_of_online_encyclopedias						proc:wiki,noimg,nojs		under:wikipedia			css:g.css
 https://en.wikipedia.org/wiki/List_of_Linux_distributions						proc:wiki,noimg,nojs		under:wikipedia			css:g.css
 https://en.wikipedia.org/wiki/Cicada_3301								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/John_Carmack								proc:wiki,nojs			under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/John_Romero								proc:wiki,nojs			under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Doom_(series)								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/The_Elder_Scrolls								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Linus_Torvalds								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Bill_Gates								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
 
 # the elder scrolls
 http://en.uesp.net/wiki/Skyrim:Mountain_Climbing							proc:wiki,noimg,nojs		under:TES wikis			css:g.css
@@ -77,7 +83,9 @@ http://lolmythesis.com/page/8										proc:nojs			under:lol my thesis		css:g.cs
 
 # resources
 
-http://en.uesp.net/w/images/thumb/3/3d/MW-concept-AnumidumBW.jpg/180px-MW-concept-AnumidumBW.jpg
+http://en.uesp.net/w/images/thumb/3/3d/MW-concept-AnumidumBW.jpg/180px-MW-concept-AnumidumBW.jpg	proc:small
 https://upload.wikimedia.org/wikipedia/commons/1/1b/Linux_Distribution_Timeline.svg
 https://upload.wikimedia.org/wikipedia/commons/6/69/DebianFamilyTree1210.svg
+https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/John_Romero_-_Jason_Scott_interview_%286951215353%29_%28cropped%29.jpg/220px-John_Romero_-_Jason_Scott_interview_%286951215353%29_%28cropped%29.jpg	proc:small
+https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/John_Carmack_GDC_2010.jpg/220px-John_Carmack_GDC_2010.jpg	proc:small
 
