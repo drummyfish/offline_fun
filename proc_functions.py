@@ -45,6 +45,12 @@ def reddit(html):                                       ##< for reddit
   html = parser.delete_subtrees(html,"ul","","flat-list buttons")
   return html
 
+@proc_text
+def onlypre(html):
+  parser = FunHTMLParser()
+  html = parser.leave_only_subtrees(html,"pre","","")
+  return html
+
 @proc_image
 def small(img):                                         ##< resizes the image to small
   return img.resize((200,200))

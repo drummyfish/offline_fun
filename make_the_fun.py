@@ -96,7 +96,7 @@ def cookies_string(cookies):
 def add_page_header(html, original_url, title):
   parser = fun_html_parser.FunHTMLParser()
   html_code = ("<div id=\"offline_fun_header\" style=\"margin: 20px 0; padding: 20px; background-color: "
-               "rgb(232,145,84);\"> <a href=\"../index.html\">back</a> to index, offline "
+               "rgb(232,145,84); border-radius: 10px;\"> <a href=\"../index.html\">back</a> to index, offline "
                "fun index - <a href=\"" + original_url + "\">" + title + "</a></div>\n")
   return parser.add_to_body(html,html_code)
 
@@ -119,12 +119,15 @@ def get_html_title(html):
 def preprocess_link(url):
   return re.sub("^(https?:|)//","",url)
 
-def url_to_filename(url):
-  extension = get_extension(url)
+def url_to_filename(url,forced_type=""):
+  if len(forced_type) == 0:
+    extension = get_extension(url)
+  else:
+    extension = "." + forced_type
 
   url = re.sub("\n","",url)
   url = preprocess_link(url)
-  url = re.sub("[\./]","_",url)
+  url = re.sub("[\./%]","_",url)
 
   url += extension
 
@@ -179,6 +182,7 @@ with open(CONTENT_FILE,"r") as content_file:
 
     filetype = get_filetype(url)
 
+    forced_type = ""
     proc_function_names = ""
     list_under = "other"                      # default cathegory
     css_name = ""
@@ -198,10 +202,22 @@ with open(CONTENT_FILE,"r") as content_file:
         list_under = attr_value
       elif attr_name == "css":
          css_name = attr_value
+      elif attr_name == "forcetype":
+         forced_type = attr_value
+
+         if attr_value == "html":
+           filetype = FILETYPE_WEBPAGE
+         elif attr_value == "txt":
+           filetype = FILETYPE_TEXT
+         elif attr_value == "img":
+           filetype = FILETYPE_IMAGE
+         else:
+           print("Warning: unknown filetype \"" + attr_value + "\"")
+           forced_type = ""
 
     if filetype in (FILETYPE_WEBPAGE,FILETYPE_TEXT):
       #========= WEBPAGE ==========
-      filename = url_to_filename(url)
+      filename = url_to_filename(url,forced_type)
 
       print("downloading page: " + url)
 
@@ -240,7 +256,7 @@ with open(CONTENT_FILE,"r") as content_file:
       try:
         html = proc_functions.apply_proc_functions(html,proc_function_names)
       except AttributeError as e:
-        print("error applying proc functions: " + proc_function_names)
+        print("error applying proc functions: " + proc_function_names + ": " + str(e))
         error_count += 1
 
       html = add_page_header(html,url,page_title)
@@ -255,7 +271,7 @@ with open(CONTENT_FILE,"r") as content_file:
       print("downloading image: " + url)
 
       imagefile = urllib.URLopener()
-      filename = url_to_filename(url)
+      filename = url_to_filename(url,forced_type)
 
       complete_filename = os.path.join(data_folder,filename)
 

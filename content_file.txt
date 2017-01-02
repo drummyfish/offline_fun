@@ -21,6 +21,13 @@ https://en.wikipedia.org/wiki/Doom_(series)								proc:wiki,noimg,nojs		under:w
 https://en.wikipedia.org/wiki/The_Elder_Scrolls								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
 https://en.wikipedia.org/wiki/Linus_Torvalds								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
 https://en.wikipedia.org/wiki/Bill_Gates								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/North_Korea								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Kim_Jong-un								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Tokyo_Imperial_Palace							proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Residences_of_North_Korean_leaders					proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Steve_Jobs								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/Bill_Gates								proc:wiki,noimg,nojs		under:wikipedia			css:g.css
+https://en.wikipedia.org/wiki/List_of_books_about_video_games						proc:wiki,noimg,nojs		under:wikipedia			css:g.css
 
 # the elder scrolls
 http://en.uesp.net/wiki/Skyrim:Mountain_Climbing							proc:wiki,noimg,nojs		under:TES wikis			css:g.css
@@ -62,6 +69,7 @@ https://www.reddit.com/r/AskReddit/comments/219w2o/whos_the_dumbest_person_youve
 
 http://www.gutenberg.org/cache/epub/201/pg201.txt											under:books			
 http://www.gutenberg.org/cache/epub/5768/pg5768.txt											under:books
+https://archive.org/stream/pdfy-2af6sIo0-9yPtvRo/Learn%20You%20a%20Haskell%20for%20Great%20Good_djvu.txt	proc:onlypre,nojs		css:g.css	forcetype:html
 
 http://www.freepatentsonline.com/crazy.html								proc:nojs							css:g.css
 
